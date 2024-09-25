@@ -4,12 +4,12 @@
 #include <math.h>
 
 // Dot product function
-float dp(long N, float *pA, float *pB) {
+float dpunroll(long N, float *pA, float *pB) {
     float R = 0.0;
-
-    for (long j = 0; j < N; j++) {
-        R += pA[j] * pB[j];
-    }
+    int j;
+    for (j=0;j<N;j+=4)
+        R += pA[j]*pB[j] + pA[j+1]*pB[j+1] \
+               + pA[j+2]*pB[j+2] + pA[j+3] * pB[j+3];
     return R;
 }
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     for (int j = 0; j < repetitions; j++) {
         clock_gettime(CLOCK_MONOTONIC, &start);
-        dp(N, pA, pB);
+        dpunroll(N, pA, pB);
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
