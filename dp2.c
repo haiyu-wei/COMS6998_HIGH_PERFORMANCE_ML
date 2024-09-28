@@ -33,12 +33,12 @@ int main(int argc, char *argv[]) {
     struct timespec start, end;
     double total_time = 0.0;
 
-
+    int res = 0;
     for (int j = 0; j < repetitions; j++) {
         clock_gettime(CLOCK_MONOTONIC, &start);
-        dpunroll(N, pA, pB);
+        res = dpunroll(N, pA, pB);
         clock_gettime(CLOCK_MONOTONIC, &end);
-
+        res += res;
         double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
         if (j >= repetitions / 2) {
