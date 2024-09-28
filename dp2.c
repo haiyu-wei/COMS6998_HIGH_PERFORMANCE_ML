@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
             total_time += time_spent;
         }
     }
-
+    printf("Total res: %f\n", res);
     double average_time = total_time / (repetitions / 2);
 
 
