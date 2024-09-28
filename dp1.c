@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     for (int j = 0; j < repetitions; j++) {
         clock_gettime(CLOCK_MONOTONIC, &start);
-        dp(N, pA, pB);
+        // dp(N, pA, pB);
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
