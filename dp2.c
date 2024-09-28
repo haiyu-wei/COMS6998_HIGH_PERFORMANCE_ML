@@ -33,9 +33,10 @@ int main(int argc, char *argv[]) {
     struct timespec start, end;
     double total_time = 0.0;
 
+    float result = 0.0;
     for (int j = 0; j < repetitions; j++) {
         clock_gettime(CLOCK_MONOTONIC, &start);
-        res = dpunroll(N, pA, pB);
+        result = dpunroll(N, pA, pB);
         clock_gettime(CLOCK_MONOTONIC, &end);
         double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
@@ -43,6 +44,8 @@ int main(int argc, char *argv[]) {
             total_time += time_spent;
         }
     }
+    printf("Result: %f\n", result);
+
     double average_time = total_time / (repetitions / 2);
 
 
