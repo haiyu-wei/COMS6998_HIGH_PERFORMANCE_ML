@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     struct timespec start, end;
     double total_time = 0.0;
 
-    int result = 0;
+    float result = 0;
     for (int j = 0; j < repetitions; j++) {
         clock_gettime(CLOCK_MONOTONIC, &start);
         result += dp(N, pA, pB);
