@@ -2,31 +2,28 @@ import numpy as np
 import time
 import argparse
 
-# Function to compute dot product using a simple loop
+
 def dp(N, A, B):
     R = 0.0
     for j in range(N):
         R += A[j] * B[j]
     return R
 
-# Main function to handle argument parsing and computation
 def main():
-    # Parse command line arguments
     parser = argparse.ArgumentParser(description="Dot product performance test.")
-    parser.add_argument('--N', type=int, default=300000000, help="Size of the vectors")
-    parser.add_argument('--repetitions', type=int, default=20, help="Number of repetitions")
+    parser.add_argument('--N', type=int, default=300000000)
+    parser.add_argument('--repetitions', type=int, default=20)
 
     args = parser.parse_args()
 
-    N = args.N  # Size of the vectors
-    repetitions = args.repetitions  # Number of repetitions
+    N = args.N
+    repetitions = args.repetitions
 
-    # Initialize arrays with ones, dtype=float32
+    # Initialize arrays with 1/3
     result = 0
     A = np.ones(N, dtype=np.float32)/3
     B = np.ones(N, dtype=np.float32)/3
 
-    # Timing the function for the second half of repetitions
     start_time = time.time()
     for i in range(repetitions // 2, repetitions):  # Timing the second half of the repetitions
         result = dp(N, A, B)
@@ -42,7 +39,7 @@ def main():
     bandwidth = (bytes_accessed / 1e9) / average_time  # Convert to GB/sec
 
     # Calculate FLOP/sec
-    flops = (2 * N) / average_time  # 2 operations (multiply and add) per element
+    flops = (2 * N) / average_time  # 2 operations
 
     # Print the results in the required format
     print(f"N: {N} <T>: {average_time:.6f} sec B: {bandwidth:.6f} GB/sec F: {flops:.6f} FLOP/sec")

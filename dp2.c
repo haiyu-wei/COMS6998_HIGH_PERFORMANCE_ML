@@ -15,16 +15,18 @@ float dpunroll(long N, float *pA, float *pB) {
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        printf("Usage: %s <vector_size> <repetitions>\n", argv[0]);
+        printf("Wrong Usage\n");
         return -1;
     }
 
     long N = atol(argv[1]);
     int repetitions = atoi(argv[2]);
 
+    // allocate memory for two arrays
     float *pA = (float *)malloc(N * sizeof(float));
     float *pB = (float *)malloc(N * sizeof(float));
 
+    // initialize arrays
     for (long i = 0; i < N; i++) {
         pA[i] = 1.0;
         pB[i] = 1.0;
@@ -35,11 +37,14 @@ int main(int argc, char *argv[]) {
 
     float result = 0.0;
     for (int j = 0; j < repetitions; j++) {
+        // only calculate the time spent on dp function
         clock_gettime(CLOCK_MONOTONIC, &start);
+        // need to use the result, otherwise it will be passed by compiler
         result = dpunroll(N, pA, pB);
         clock_gettime(CLOCK_MONOTONIC, &end);
         double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
+        // only calculate the second half of the repetitions
         if (j >= repetitions / 2) {
             total_time += time_spent;
         }
