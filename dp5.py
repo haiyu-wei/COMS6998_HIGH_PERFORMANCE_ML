@@ -2,6 +2,9 @@ import numpy as np
 import time
 import argparse
 
+from numpy.core.multiarray import result_type
+
+
 # Main function to handle argument parsing and computation
 def main():
     # Parse command line arguments
@@ -15,15 +18,17 @@ def main():
     repetitions = args.repetitions  # Number of repetitions
 
     # Initialize arrays with ones, dtype=float32
-    A = np.ones(N, dtype=np.float32)
-    B = np.ones(N, dtype=np.float32)
+    A = np.ones(N, dtype=np.float32)/3
+    B = np.ones(N, dtype=np.float32)/3
 
     # Timing NumPy's built-in dot product for the second half of repetitions
     start_time = time.time()
+    result = 0
     for i in range(repetitions // 2, repetitions):  # Timing the second half of the repetitions
         result = np.dot(A, B)
     end_time = time.time()
 
+    print(result)
     # Calculate the average time for the second half of repetitions
     average_time = (end_time - start_time) / (repetitions // 2)
 

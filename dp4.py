@@ -22,14 +22,17 @@ def main():
     repetitions = args.repetitions  # Number of repetitions
 
     # Initialize arrays with ones, dtype=float32
-    A = np.ones(N, dtype=np.float32)
-    B = np.ones(N, dtype=np.float32)
+    result = 0
+    A = np.ones(N, dtype=np.float32)/3
+    B = np.ones(N, dtype=np.float32)/3
 
     # Timing the function for the second half of repetitions
     start_time = time.time()
     for i in range(repetitions // 2, repetitions):  # Timing the second half of the repetitions
         result = dp(N, A, B)
     end_time = time.time()
+
+    print(result)
 
     # Calculate the average time for the second half of repetitions
     average_time = (end_time - start_time) / (repetitions // 2)
